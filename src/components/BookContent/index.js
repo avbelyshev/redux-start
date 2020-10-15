@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 
+import * as contentActions from '../../redux/actionTypes/content';
 import BookContent from "./BookContent";
 
 const filters = {
@@ -14,11 +15,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   toggleChapter: (idx) => dispatch({
-    type: 'TOGGLE_CHAPTER',
+    type: contentActions.TOGGLE_CHAPTER,
     idx
   }),
   addChapter: (title) => dispatch({
-    type: 'ADD_CHAPTER',
+    type: contentActions.ADD_CHAPTER,
     title
   })
 });
