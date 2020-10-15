@@ -4,6 +4,7 @@ import store from './redux/store';
 
 import Filter from "./components/Filter";
 import BookContent from "./components/BookContent";
+import ContentCounter from "./components/ContentCounter";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         Book content
         <Filter />
         <BookContent />
+        <ContentCounter />
       </div>
     </Provider>
   );
