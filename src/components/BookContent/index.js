@@ -10,16 +10,27 @@ const filters = {
 }
 
 const mapStateToProps = (state) => ({
-  content: state.content.filter(filters[state.visibilityFilter])
+  content: state.content.map(chapter => (
+    {
+      ...chapter,
+      subsections: chapter.subsections.filter(filters[state.visibilityFilter])
+    }
+  ))
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleChapter: (idx) => dispatch({
-    type: contentActions.TOGGLE_CHAPTER,
+  toggleSubsection: (pIdx, idx) => dispatch({
+    type: contentActions.TOGGLE_SUBSECTION,
+    pIdx,
     idx
   }),
   addChapter: (title) => dispatch({
     type: contentActions.ADD_CHAPTER,
+    title
+  }),
+  addSubsection: (pIdx, title) => dispatch({
+    type: contentActions.ADD_SUBSECTION,
+    pIdx,
     title
   })
 });

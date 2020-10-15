@@ -1,20 +1,25 @@
 import React from 'react';
 
-const BookContent = ({ content, toggleChapter, addChapter }) => {
+import Subsections from "./Subsections";
+
+const BookContent = ({ content, addChapter, addSubsection, toggleSubsection }) => {
   return (
     <div>
       {
         content.map(
           (chapter, idx) => (
-            <label key={idx} className='block select-none'>
-              <input
-                onChange={() => toggleChapter(idx)}
-                type='checkbox'
-                checked={chapter.completed}
-              />
-              {' '}
-              {chapter.title}
-            </label>
+            <div key={idx}>
+              <label className='block select-none'>
+                <input
+                  readOnly
+                  type='checkbox'
+                  checked={chapter.completed}
+                />
+                {' '}
+                {chapter.title}
+              </label>
+              <Subsections chapter={chapter} pIdx={idx} toggleSubsection={toggleSubsection} addSubsection={addSubsection} />
+            </div>
           )
         )
       }
