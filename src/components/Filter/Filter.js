@@ -1,20 +1,20 @@
 import React from 'react';
 
-const Filter = ({ dispatch }) => {
+const Filter = ({ setFilter }) => {
   return (
     <div>
       <FilterButton
-        onClick={() => { dispatch({ type: 'SET_FILTER', filter: 'SHOW_ALL' })}}
+        onClick={() => { setFilter('SHOW_ALL') }}
       >
         Show all
       </FilterButton>
       <FilterButton
-        onClick={() => { dispatch({ type: 'SET_FILTER', filter: 'SHOW_COMPLETED' })}}
+        onClick={() => { setFilter('SHOW_COMPLETED') }}
       >
         Show completed
       </FilterButton>
       <FilterButton
-        onClick={() => { dispatch({ type: 'SET_FILTER', filter: 'SHOW_UNCOMPLETED' })}}
+        onClick={() => { setFilter('SHOW_UNCOMPLETED') }}
       >
         Show uncompleted
       </FilterButton>
