@@ -2,7 +2,7 @@ import React from 'react';
 
 import Subsections from "./Subsections";
 
-const BookContent = ({ content, addChapter, addSubsection, toggleSubsection }) => {
+const BookContent = ({ undo, content, addChapter, addSubsection, toggleSubsection }) => {
   return (
     <div>
       {
@@ -35,6 +35,7 @@ const BookContent = ({ content, addChapter, addSubsection, toggleSubsection }) =
         <input type='text' name='title' />
         <button>Add chapter</button>
       </form>
+      <button className='block mt-5 border border-gray-800 px-2 py-1' onClick={() => { undo(); }}>Undo</button>
     </div>
   );
 };
