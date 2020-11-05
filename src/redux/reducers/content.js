@@ -1,6 +1,11 @@
 import * as contentActions from '../actionTypes/content';
 
-const initialState = [{ title: 'First chapter', subsections: [{ title: 'Subsection 1', completed: false }], completed: false }];
+const initialState = {
+  isLoading: false,
+  isError: false,
+  error: null,
+  entries: []
+};
 
 const toggleSubsection = (chapter, action) => {
   const Chapter = {
@@ -18,23 +23,51 @@ const toggleSubsection = (chapter, action) => {
 export const content = function (state = initialState, action) {
   switch (action.type) {
     case contentActions.TOGGLE_SUBSECTION:
-      return state.map(
-        (chapter, idx) => (
-          idx === action.pIdx
-            ? toggleSubsection(chapter, action)
-            : chapter
+      return {
+        ...state,
+        entries: state.entries.map(
+          (chapter, idx) => (
+            idx === action.pIdx
+              ? toggleSubsection(chapter, action)
+              : chapter
+          )
         )
-      );
+      };
     case contentActions.ADD_CHAPTER:
-      return state.concat({ title: action.title, subsections: [], completed: false });
+      return {
+        ...state,
+        entries: state.entries.concat({ title: action.title, subsections: [], completed: false })
+      };
     case contentActions.ADD_SUBSECTION:
-      return state.map(
-        (chapter, idx) => (
-          idx === action.pIdx
-            ? { ...chapter, subsections: [...chapter.subsections, { title: action.title, completed: false}], completed: false }
-            : chapter
+      return {
+        ...state,
+        entries: state.entries.map(
+          (chapter, idx) => (
+            idx === action.pIdx
+              ? { ...chapter, subsections: [...chapter.subsections, { title: action.title, completed: false}], completed: false }
+              : chapter
+          )
         )
-      );
+      };
+
+    case contentActions.FETCH_CHAPTER_REQUEST:
+      return {
+        ...initialState,
+        isLoading: true
+      };
+
+    case contentActions.FETCH_CHAPTER_SUCCESS:
+      return {
+        ...initialState,
+        entries: action.response
+      };
+
+    case contentActions.FETCH_CHAPTER_FAILURE:
+      return {
+        ...state,
+        isError: true,
+        error: action.error
+      }
     default:
       return state;
   }

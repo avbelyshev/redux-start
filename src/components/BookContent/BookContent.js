@@ -2,11 +2,13 @@ import React from 'react';
 
 import Subsections from "./Subsections";
 
-const BookContent = ({ undo, content, addChapter, addSubsection, toggleSubsection }) => {
+const BookContent = ({ isLoading, undo, content, addChapter, addSubsection, toggleSubsection }) => {
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <div>
       {
-        content.map(
+        content && content.map(
           (chapter, idx) => (
             <div key={idx}>
               <label className='block select-none'>
