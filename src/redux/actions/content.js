@@ -1,6 +1,5 @@
 import * as contentActions from '../actionTypes/content';
-
-import { API_CALL } from '../middleware/API';
+import axios from 'axios';
 
 export const addChapter = (title) => ({
   type: contentActions.ADD_CHAPTER,
@@ -19,14 +18,24 @@ export const toggleSubsection = (pIdx, idx) => ({
   idx
 });
 
-export const fetchChapters = () => ({
-  [API_CALL]: {
-    endpoint: '/chapters',
-    method: 'GET',
-    types: [
-      contentActions.FETCH_CHAPTER_REQUEST,
-      contentActions.FETCH_CHAPTER_SUCCESS,
-      contentActions.FETCH_CHAPTER_FAILURE
-    ]
+export const fetchChapters = () => (
+  (dispatch) => {
+    dispatch({
+      type: contentActions.FETCH_CHAPTER_REQUEST
+    });
+
+    return axios({
+      method: 'GET',
+      url: 'https://books-82c9.restdb.io/rest/chapters',
+      headers: {
+        'x-apikey': '5fa39ed4863959728838502d'
+      }
+    }).then(res => dispatch({
+      type: contentActions.FETCH_CHAPTER_SUCCESS,
+      response: res.data
+    })).catch(error => dispatch({
+      type: contentActions.FETCH_CHAPTER_FAILURE,
+      error
+    }))
   }
-});
+);
