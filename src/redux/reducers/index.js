@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { content } from "./content";
+import content from "../slices/content";
 import { visibilityFilter } from "./visibilityFilter";
 
 import undoable from 'redux-undo';

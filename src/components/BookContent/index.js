@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import * as contentActions from '../../redux/actions/content';
+import { toggleSubsection, addChapter, addSubsection } from '../../redux/slices/content';
 import BookContent from "./BookContent";
 
 import { ActionCreators } from 'redux-undo';
@@ -22,9 +22,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSubsection: (pIdx, idx) => dispatch(contentActions.toggleSubsection(pIdx, idx)),
-  addChapter: (title) => dispatch(contentActions.addChapter(title)),
-  addSubsection: (pIdx, title) => dispatch(contentActions.addSubsection(pIdx, title)),
+  toggleSubsection: (pIdx, idx) => dispatch(toggleSubsection(pIdx, idx)),
+  addChapter: (title) => dispatch(addChapter(title)),
+  addSubsection: (pIdx, title) => dispatch(addSubsection(pIdx, title)),
   undo: () => dispatch(ActionCreators.undo())
 });
 
