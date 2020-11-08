@@ -72,23 +72,23 @@ const contentSlice = createSlice({
           )
         )
       };
-    },
-    extraReducers: {
-      [fetchChapters.pending]: (state, action) => ({
-        ...state,
-        isLoading: true
-      }),
-      [fetchChapters.fulfilled]: (state, action) => ({
-        ...initialState,
-        entries: action.payload
-      }),
-      [fetchChapters.rejected]: (state, action) => ({
-        ...state,
-        isLoading: false,
-        isError: true,
-        error: action.payload.error
-      })
     }
+  },
+  extraReducers: {
+    [fetchChapters.pending]: (state, action) => ({
+      ...state,
+      isLoading: true
+    }),
+    [fetchChapters.fulfilled]: (state, action) => ({
+      ...initialState,
+      entries: action.payload
+    }),
+    [fetchChapters.rejected]: (state, action) => ({
+      ...state,
+      isLoading: false,
+      isError: true,
+      error: action.error
+    })
   }
 });
 
