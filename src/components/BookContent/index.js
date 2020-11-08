@@ -7,8 +7,8 @@ import { ActionCreators } from 'redux-undo';
 
 const filters = {
   SHOW_ALL: () => true,
-  SHOW_COMPLETED: chapter => !!chapter.completed,
-  SHOW_UNCOMPLETED: chapter => !chapter.completed
+  SHOW_COMPLETED: subsection => !!subsection.completed,
+  SHOW_UNCOMPLETED: subsection => !subsection.completed
 }
 
 const mapStateToProps = (state) => ({
@@ -22,9 +22,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleSubsection: (pIdx, idx) => dispatch(toggleSubsection(pIdx, idx)),
+  toggleSubsection: (pIdx, idx) => dispatch(toggleSubsection({pIdx, idx})),
   addChapter: (title) => dispatch(addChapter(title)),
-  addSubsection: (pIdx, title) => dispatch(addSubsection(pIdx, title)),
+  addSubsection: (pIdx, title) => dispatch(addSubsection({pIdx, title})),
   undo: () => dispatch(ActionCreators.undo())
 });
 

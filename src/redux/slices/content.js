@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export const fetchChapters = createAsyncThunk(
-  'chapters/fetchAll',
+  'content/fetchAll',
   async () => {
     const response = await axios({
       method: 'GET',
@@ -67,7 +67,7 @@ const contentSlice = createSlice({
         entries: state.entries.map(
           (chapter, idx) => (
             idx === action.payload.pIdx
-              ? { ...chapter, subsections: [...chapter.subsections, { title: action.payload, completed: false}], completed: false }
+              ? { ...chapter, subsections: [...chapter.subsections, { title: action.payload.title, completed: false}], completed: false }
               : chapter
           )
         )
@@ -81,6 +81,12 @@ const contentSlice = createSlice({
       [fetchChapters.fulfilled]: (state, action) => ({
         ...initialState,
         entries: action.payload
+      }),
+      [fetchChapters.rejected]: (state, action) => ({
+        ...state,
+        isLoading: false,
+        isError: true,
+        error: action.payload.error
       })
     }
   }
