@@ -2,11 +2,13 @@ import React from 'react';
 
 import Subsections from "./Subsections";
 
-const BookContent = ({ content, addChapter, addSubsection, toggleSubsection }) => {
+const BookContent = ({ isLoading, undo, content, addChapter, addSubsection, toggleSubsection }) => {
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <div>
       {
-        content.map(
+        content && content.map(
           (chapter, idx) => (
             <div key={idx}>
               <label className='block select-none'>
@@ -35,6 +37,7 @@ const BookContent = ({ content, addChapter, addSubsection, toggleSubsection }) =
         <input type='text' name='title' />
         <button>Add chapter</button>
       </form>
+      <button className='block mt-5 border border-gray-800 px-2 py-1' onClick={() => { undo(); }}>Undo</button>
     </div>
   );
 };

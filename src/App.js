@@ -6,6 +6,10 @@ import Filter from "./components/Filter";
 import BookContent from "./components/BookContent";
 import ContentCounter from "./components/ContentCounter";
 
+import { fetchChapters } from "./redux/slices/content";
+
+store.dispatch(fetchChapters());
+
 function App() {
   return (
     <Provider store={store}>
