@@ -26,17 +26,12 @@ export const fetchChapters = createAsyncThunk(
   }
 );
 
-const procSubsection = (chapter, action) => {
-  const Chapter = {
-    ...chapter,
-    subsections: chapter.subsections.map((subsection, idx) => (
-      idx === action.payload.idx
-        ? { ...subsection, completed: !chapter.completed }
-        : subsection
-    ))
-  };
-  Chapter.completed = Chapter.subsections.length === Chapter.subsections.filter(s => s.completed).length;
-  return Chapter;
+const findChapter = (chapters, id) => {
+  return chapters.find((chapter, idx) => idx === id);
+};
+
+const chapterCompleted = (chapter) => {
+  return chapter.subsections.length === chapter.subsections.filter(s => s.completed).length;
 };
 
 const contentSlice = createSlice({
@@ -44,34 +39,24 @@ const contentSlice = createSlice({
   initialState,
   reducers: {
     toggleSubsection(state, action) {
-      return {
-        ...state,
-        entries: state.entries.map(
-          (chapter, idx) => (
-            idx === action.payload.pIdx
-              ? procSubsection(chapter, action)
-              : chapter
-          )
-        )
-      };
+      const chapter = findChapter(state.entries, action.payload.pIdx);
+      if (!chapter) return;
+
+      const subsection = chapter.subsections.find((subsection, idx) => idx === action.payload.idx);
+      if (subsection) subsection.completed = !subsection.completed;
+
+      chapter.completed = chapterCompleted(chapter);
     },
     addChapter(state, action) {
-      return {
-        ...state,
-        entries: state.entries.concat({ title: action.payload, subsections: [], completed: false })
-      };
+      const chapter = { title: action.payload, subsections: [], completed: false };
+      state.entries.push(chapter);
     },
     addSubsection(state, action) {
-      return {
-        ...state,
-        entries: state.entries.map(
-          (chapter, idx) => (
-            idx === action.payload.pIdx
-              ? { ...chapter, subsections: [...chapter.subsections, { title: action.payload.title, completed: false}], completed: false }
-              : chapter
-          )
-        )
-      };
+      const chapter = findChapter(state.entries, action.payload.pIdx);
+      if (chapter) {
+        chapter.subsections.push({ title: action.payload.title, completed: false });
+        chapter.completed = chapterCompleted(chapter);
+      }
     }
   },
   extraReducers: {
