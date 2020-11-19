@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Subsections from "./Subsections";
 
@@ -20,6 +21,7 @@ const BookContent = ({ isLoading, undo, content, addChapter, addSubsection, togg
                 {' '}
                 {chapter.title}
               </label>
+              <Link to={`/chapters/${chapter._id}`}>View</Link>
               <Subsections chapter={chapter} pIdx={idx} toggleSubsection={toggleSubsection} addSubsection={addSubsection} />
             </div>
           )
