@@ -29,15 +29,20 @@ const BookContent = ({ isLoading, undo, content, addChapter, addSubsection, togg
         onSubmit={
           (e) => {
             e.preventDefault();
-            addChapter(e.target.title.value);
-            e.target.title.value = '';
+            addChapter(e.target.elements.title.value);
+            e.target.elements.title.value = '';
           }
         }
       >
-        <input type='text' name='title' />
-        <button>Add chapter</button>
+        <input type='text' name='title' data-testid='add-chapter-input' />
+        <button data-testid='add-chapter-btn'>Add chapter</button>
       </form>
-      <button className='block mt-5 border border-gray-800 px-2 py-1' onClick={() => { undo(); }}>Undo</button>
+      <button
+        className='block mt-5 border border-gray-800 px-2 py-1'
+        onClick={() => { undo(); }}
+      >
+        Undo
+      </button>
     </div>
   );
 };
