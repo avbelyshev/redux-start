@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^6.0.1",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "msw": "^0.24.1"
   }
