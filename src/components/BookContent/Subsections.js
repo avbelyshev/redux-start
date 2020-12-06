@@ -12,6 +12,7 @@ const Subsections = ({ chapter, pIdx, toggleSubsection, addSubsection }) => {
                 onChange={() => toggleSubsection(pIdx, idx)}
                 type='checkbox'
                 checked={subsection.completed}
+                data-testid={`chapter-${pIdx}-subsection-${idx}-checkbox`}
               />
               {' '}
               {subsection.title}
