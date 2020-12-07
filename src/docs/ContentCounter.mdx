@@ -1,0 +1,21 @@
+---
+name: ContentCounter
+---
+
+import '../index.css';
+import ContentCounter from '../components/ContentCounter/ContentCounter';
+import { Playground } from 'docz';
+
+# ContentCounter
+
+Компонент для отображения сведений о книге (кол-во глав, подразделов, готовность)
+
+<Playground>
+  <ContentCounter {...{
+    chaptersCount: 1,
+    completedChaptersCount: 0,
+    subsectionsCount: 2,
+    completedSubsectionsCount: 1,
+    readiness: 50
+  }}/>
+</Playground>
