@@ -12,6 +12,7 @@ const Subsections = ({ chapter, pIdx, toggleSubsection, addSubsection }) => {
                 onChange={() => toggleSubsection(pIdx, idx)}
                 type='checkbox'
                 checked={subsection.completed}
+                data-testid={`chapter-${pIdx}-subsection-${idx}-checkbox`}
               />
               {' '}
               {subsection.title}
@@ -23,14 +24,14 @@ const Subsections = ({ chapter, pIdx, toggleSubsection, addSubsection }) => {
         onSubmit={
           (e) => {
             e.preventDefault();
-            addSubsection(pIdx, e.target.title.value);
-            e.target.title.value = '';
+            addSubsection(pIdx, e.target.elements.title.value);
+            e.target.elements.title.value = '';
           }
         }
       >
         {' --- '}
-        <input type='text' name='title' />
-        <button>Add subsection</button>
+        <input type='text' name='title' data-testid={`chapter-${pIdx}-add-subsection-input`} />
+        <button data-testid={`chapter-${pIdx}-add-subsection-btn`}>Add subsection</button>
       </form>
     </div>
   );
